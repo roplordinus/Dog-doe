@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Dog Gallery | Discover Adorable Pups</title>
+    <!-- Importing cute and friendly modern fonts from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. DESIGN SYSTEM & VARIABLE DEFINITIONS
+           ========================================== */
+        :root {
+            --bg-primary: #fcfaf7;         /* Soft, warm cream background */
+            --bg-card: #ffffff;            /* Pure white background for cards */
+            --color-text-main: #2d2a26;    /* Dark charcoal for high contrast text */
+            --color-text-muted: #726a5e;   /* Gentle warm gray for secondary text */
+            --color-accent: #ff8a5c;       /* Vibrant, friendly coral/orange */
+            --color-accent-hover: #e87040; /* Slightly darker coral for hover states */
+            --color-accent-light: #fff0ea; /* Ultra-soft orange tint for tags */
+            --color-highlight: #ffc83b;    /* Golden yellow for high-attention badges */
+            --color-highlight-light: #fffcf0; /* Soft warm yellow glow */
+            --shadow-soft: 0 12px 30px rgba(180, 160, 140, 0.12); /* Soft ambient shadows */
+            --shadow-hover: 0 20px 40px rgba(255, 138, 92, 0.18); /* Cozy glow on card hover */
+            --shadow-spotlight: 0 25px 50px rgba(255, 200, 59, 0.22); /* Sparkly glow for featured pup */
+            --border-radius-lg: 24px;      /* Friendly, rounded corners for cards */
+            --border-radius-md: 16px;      /* Rounded corners for buttons and smaller elements */
+            --font-display: 'Fredoka', sans-serif; /* Round, bubbly font for titles */
+            --font-body: 'Quicksand', sans-serif;   /* Clean, friendly sans-serif for reading */
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Elegant elastic transition */
+        }
+
+        /* ==========================================
+           2. GLOBAL STYLES & LAYOUT
+           ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--color-text-main);
+            line-height: 1.6;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Very subtle paw-print/dot wallpaper background */
+            background-image: radial-gradient(#eddcc8 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ==========================================
+           3. HEADER STYLES
+           ========================================== */
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        h1.gallery-title {
+            font-family: var(--font-display);
+            font-size: 3.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            /* Sleek modern color gradient */
+            background: linear-gradient(135deg, var(--color-accent) 0%, #e04a34 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gallery-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        .paw-icon {
+            display: inline-block;
+            width: 3.25rem;
+            height: 3.25rem;
+            fill: var(--color-accent);
+            animation: wiggle 3s infinite ease-in-out;
+        }
+
+        /* ==========================================
+           4. SPOTLIGHT / RANDOM DOG SECTION
+           ========================================== */
+        .spotlight-section {
+            width: 100%;
+            max-width: 750px;
+            margin-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+        }
+
+        /* Premium "Show Random Dog" button */
+        .btn-random {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #e8553f 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 138, 92, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: var(--transition-smooth);
+            outline: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .btn-random:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 138, 92, 0.45);
+        }
+
+        .btn-random:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Spinning Paw inside the Button */
+        .btn-random svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: white;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-random:hover svg {
+            transform: rotate(180deg);
+        }
+
+        /* Interactive Spotlight Container */
+        .spotlight-box {
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            border: 3px dashed #e6dfd5;
+            padding: 2.25rem;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Active highlight styling */
+        .spotlight-box.active {
+            border: 3px solid var(--color-highlight);
+            box-shadow: var(--shadow-spotlight);
+            background: linear-gradient(145deg, #ffffff 0%, var(--color-highlight-light) 100%);
+        }
+
+        /* Empty state styling */
+        .spotlight-placeholder {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1.15rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .spotlight-placeholder span {
+            font-size: 3rem;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        /* Populated Spotlight Card */
+        .spotlight-content {
+            display: flex;
+            gap: 2.25rem;
+            width: 100%;
+            align-items: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .spotlight-img-wrapper {
+            flex: 1;
+            aspect-ratio: 1.2 / 1;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            border: 4px solid white;
+        }
+
+        .spotlight-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .spotlight-info {
+            flex: 1.3;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* Glowing Badge for Spotlight */
+        .spotlight-badge {
+            background: var(--color-highlight);
+            color: #7d5e00;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            align-self: flex-start;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 4px 12px rgba(255, 200, 59, 0.3);
+        }
+
+        .spotlight-title {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            color: var(--color-text-main);
+            font-weight: 700;
+        }
+
+        .spotlight-desc {
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           5. GALLERY GRID & DOG CARDS
+           ========================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+
+        /* Custom Dog Card */
+        .dog-card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        /* Subtle interactive hover effect */
+        .dog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: #ffe4d9;
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.25 / 1;
+            overflow: hidden;
+            background-color: #f0ebe4;
+        }
+
+        .dog-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Gentle zoom animation on image */
+        .dog-card:hover .dog-img {
+            transform: scale(1.06);
+        }
+
+        /* Card Content Area */
+        .card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            flex-grow: 1;
+        }
+
+        .dog-breed-tag {
+            align-self: flex-start;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            background-color: var(--color-accent-light);
+            padding: 0.3rem 0.85rem;
+            border-radius: 50px;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.25rem;
+        }
+
+        .dog-name {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+        }
+
+        .dog-description {
+            font-size: 0.98rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* Spotlight dynamic glow applied to gallery card */
+        .dog-card.highlighted {
+            animation: pulseHighlight 1.5s ease-in-out infinite alternate;
+            border: 3px solid var(--color-highlight);
+        }
+
+        /* ==========================================
+           6. FOOTER STYLING
+           ========================================== */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 2.5rem 0;
+            border-top: 2px dashed #eddcc8;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition-smooth);
+        }
+
+        footer a:hover {
+            color: var(--color-accent-hover);
+            text-decoration: underline;
+        }
+
+        /* ==========================================
+           7. MEDIA QUERIES (MOBILE OPTIMIZATIONS)
+           ========================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 2rem 1rem;
+            }
+
+            h1.gallery-title {
+                font-size: 2.4rem;
+            }
+
+            .paw-icon {
+                width: 2.4rem;
+                height: 2.4rem;
+            }
+
+            .spotlight-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .spotlight-img-wrapper {
+                width: 100%;
+            }
+
+            .spotlight-info {
+                align-items: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* ==========================================
+           8. ANIMATIONS & KEYFRAMES
+           ========================================== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-8deg); }
+            40% { transform: rotate(6deg); }
+            60% { transform: rotate(-4deg); }
+            80% { transform: rotate(2deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulseHighlight {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 200, 59, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 200, 59, 0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <div class="gallery-title-wrapper">
+                <!-- Inline paw icon SVG that wiggles -->
+                <svg class="paw-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M225.8 468.2c-.2-3.9-.4-7.7-.4-11.5 0-38.5 29-70.1 67.5-73.5 11.2-.9 22.4 1 32.7 5.6 19.3 8.5 38.6 17 58 25.2 26 11.1 52.8 21.4 79.8 30.6 15.2 5.2 26.2 19 27.7 35.1 1.9 19.7-10.5 37.9-29.2 42.4-15 3.6-30.7 2.1-45-4.2-26.9-11.9-53.4-24.8-80-37.4-24.2-11.5-48.4-23.1-72.7-34.5-22.1-10.4-38.3-28.7-38.4-52.3zM256 224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96-16c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm96 16c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-128 64c-35.3 0-64 28.7-64 64 0 23.6 12.8 44.1 31.9 55.1l-11.3 33.9c-2.3 6.8 1.4 14.1 8.2 16.4l28.3 9.4c6.8 2.3 14.1-1.4 16.4-8.2l12-36.1c5.9 1.4 12.1 2.2 18.5 2.2s12.6-.8 18.5-2.2l12 36.1c2.3 6.8 9.6 10.5 16.4 8.2l28.3-9.4c6.8-2.3 10.5-9.6 8.2-16.4l-11.3-33.9c19.1-11 31.9-31.5 31.9-55.1 0-35.3-28.7-64-64-64z"/>
+                </svg>
+                <h1 class="gallery-title">Cute Dog Gallery</h1>
+            </div>
+            <p class="gallery-subtitle">A gorgeous collection of happy and adorable little dogs.</p>
+        </header>
+
+        <!-- Spotlight (Highlighted section showing a random dog) -->
+        <section class="spotlight-section">
+            
+            <!-- Dynamic button that summons a random dog -->
+            <button class="btn-random" id="btnRandom" onclick="selectRandomDog()">
+                <!-- Paw icon that spins inside the button on hover -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M225.8 468.2c-.2-3.9-.4-7.7-.4-11.5 0-38.5 29-70.1 67.5-73.5 11.2-.9 22.4 1 32.7 5.6 19.3 8.5 38.6 17 58 25.2 26 11.1 52.8 21.4 79.8 30.6 15.2 5.2 26.2 19 27.7 35.1 1.9 19.7-10.5 37.9-29.2 42.4-15 3.6-30.7 2.1-45-4.2-26.9-11.9-53.4-24.8-80-37.4-24.2-11.5-48.4-23.1-72.7-34.5-22.1-10.4-38.3-28.7-38.4-52.3zM256 224c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-96-16c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm192 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm96 16c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm-128 64c-35.3 0-64 28.7-64 64 0 23.6 12.8 44.1 31.9 55.1l-11.3 33.9c-2.3 6.8 1.4 14.1 8.2 16.4l28.3 9.4c6.8 2.3 14.1-1.4 16.4-8.2l12-36.1c5.9 1.4 12.1 2.2 18.5 2.2s12.6-.8 18.5-2.2l12 36.1c2.3 6.8 9.6 10.5 16.4 8.2l28.3-9.4c6.8-2.3 10.5-9.6 8.2-16.4l-11.3-33.9c19.1-11 31.9-31.5 31.9-55.1 0-35.3-28.7-64-64-64z"/>
+                </svg>
+                Show Random Dog
+            </button>
+
+            <!-- Spotlight container that holds either placeholder or active dog card -->
+            <div class="spotlight-box" id="spotlightBox">
+                <div class="spotlight-placeholder" id="spotlightPlaceholder">
+                    <span>🐶</span>
+                    Click the button above to summon a highlighted dog friend!
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Main Gallery Grid -->
+        <main class="gallery-grid" id="galleryGrid">
+            <!-- Dynamic dog cards will be injected here by Javascript -->
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with 💖 for dog lovers everywhere.</p>
+            <p>&copy; 2026 Cute Dog Gallery. Content curated from free image resources.</p>
+        </footer>
+
+    </div>
+
+    <!-- ==========================================
+       9. JAVASCRIPT LOGIC
+       ========================================== -->
+    <script>
+        // A. DATA STORAGE
+        // This is our data model: an array containing 9 unique dog objects.
+        // Each dog has a unique ID, a sweet name, their breed, an descriptive sentence, and a gorgeous,
+        // optimized photo URL from Unsplash.
+        const dogList = [
+            {
+                id: 1,
+                name: "Bailey",
+                breed: "Golden Retriever",
+                description: "A gorgeous bundle of sunshine, golden fur, and endless tail wags. Bailey excels at bringing warmth and cheer to everyone.",
+                image: "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 2,
+                name: "Milo",
+                breed: "Welsh Corgi",
+                description: "Famous for short legs, giant ears, and a warm, bubbly personality. Milo loves neighborhood strolls and naptime.",
+                image: "https://images.unsplash.com/photo-1612536057832-2ff7ead58194?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 3,
+                name: "Bella",
+                breed: "French Bulldog",
+                description: "A professional snorer and expert couch companion. Bella holds the gold medal in requesting belly rubs.",
+                image: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 4,
+                name: "Luna",
+                breed: "Shiba Inu",
+                description: "A fluffy, fox-like pup with a dramatic personality. Luna's curly tail and bright eyes light up every room.",
+                image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 5,
+                name: "Charlie",
+                breed: "Beagle",
+                description: "A curious detective guided completely by a hyper-sensitive nose and a powerful craving for biscuits.",
+                image: "https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 6,
+                name: "Coco",
+                breed: "Pomeranian",
+                description: "A lightweight cloud of pure fluff who firmly believes she is the ruler of the entire neighborhood.",
+                image: "https://images.unsplash.com/photo-1529429617329-84d1004b5747?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 7,
+                name: "Teddy",
+                breed: "Poodle",
+                description: "Incredibly clever, endlessly classy, and hypoallergenic! Teddy loves high-fives and morning grooming sessions.",
+                image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 8,
+                name: "Rocky",
+                breed: "Siberian Husky",
+                description: "A winter runner sporting striking blue eyes and a friendly voice. Rocky is always ready for a chat.",
+                image: "https://images.unsplash.com/photo-1531804055935-76f44d7c3621?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                id: 9,
+                name: "Daisy",
+                breed: "Cavalier King Charles",
+                description: "The gentlest listener with silky, wavy ears. Daisy is an absolute champion at cheering up her human friends.",
+                image: "https://images.unsplash.com/photo-1514984879728-be0aff75a6e8?auto=format&fit=crop&q=80&w=600"
+            }
+        ];
+
+        // We keep track of the last selected random index so we don't pick the same dog twice in a row!
+        let lastRandomIndex = -1;
+
+        // B. RENDER FUNCTION
+        // This function builds the HTML elements for all 9 dogs and places them into the grid.
+        function renderGallery() {
+            // Get reference to the grid container
+            const gridContainer = document.getElementById("galleryGrid");
+            
+            // Clear any existing content in the grid
+            gridContainer.innerHTML = "";
+
+            // Loop through our data array and generate the HTML structure for each dog card
+            dogList.forEach(dog => {
+                // Construct a custom HTML string representing a single dog card
+                const cardHtml = `
+                    <div class="dog-card" id="dog-card-${dog.id}">
+                        <div class="card-img-wrapper">
+                            <!-- Alt tag ensures accessibility for screen readers -->
+                            <img class="dog-img" src="${dog.image}" alt="Adorable photo of ${dog.name} the ${dog.breed}">
+                        </div>
+                        <div class="card-body">
+                            <span class="dog-breed-tag">${dog.breed}</span>
+                            <h2 class="dog-name">${dog.name}</h2>
+                            <p class="dog-description">${dog.description}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Append the constructed HTML card to our gallery grid
+                gridContainer.innerHTML += cardHtml;
+            });
+        }
+
+        // C. INTERACTIVE FUNCTIONALITY: RANDOM DOG SELECTOR
+        // This function runs when the user clicks the "Show Random Dog" button.
+        function selectRandomDog() {
+            let randomIndex;
+            
+            // Loop guarantees we choose a DIFFERENT dog than the one currently highlighted.
+            do {
+                randomIndex = Math.floor(Math.random() * dogList.length);
+            } while (randomIndex === lastRandomIndex);
+
+            // Keep track of our choice to prevent duplicate consecutive picks
+            lastRandomIndex = randomIndex;
+            
+            // Retrieve the chosen dog data
+            const selectedDog = dogList[randomIndex];
+
+            // 1. Update the Spotlight Showcase Component
+            const spotlightBox = document.getElementById("spotlightBox");
+            
+            // Activate spotlight styling (gives border glow)
+            spotlightBox.classList.add("active");
+
+            // Inject the detailed featured dog layout inside the Spotlight box
+            spotlightBox.innerHTML = `
+                <div class="spotlight-content">
+                    <div class="spotlight-img-wrapper">
+                        <img class="spotlight-img" src="${selectedDog.image}" alt="Spotlight dog: ${selectedDog.name}">
+                    </div>
+                    <div class="spotlight-info">
+                        <div class="spotlight-badge">
+                            <!-- Sparkle star SVG icon -->
+                            <svg style="width: 1rem; height: 1rem; fill: currentColor;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"/>
+                            </svg>
+                            Spotlight Pup
+                        </div>
+                        <h2 class="spotlight-title">${selectedDog.name}</h2>
+                        <p class="spotlight-desc"><strong>Breed:</strong> ${selectedDog.breed}</p>
+                        <p class="spotlight-desc">${selectedDog.description}</p>
+                    </div>
+                </div>
+            `;
+
+            // 2. Pulse Highlight effect on the matching card in the grid below
+            // First, remove the "highlighted" style class from any previously chosen card
+            const activeCards = document.querySelectorAll(".dog-card.highlighted");
+            activeCards.forEach(card => card.classList.remove("highlighted"));
+
+            // Select the newly featured dog's card inside the grid
+            const targetCard = document.getElementById(`dog-card-${selectedDog.id}`);
+            
+            if (targetCard) {
+                // Apply the beautiful blinking glowing card border
+                targetCard.classList.add("highlighted");
+
+                // Smoothly scroll the page so the highlighted grid card comes into comfortable view
+                targetCard.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+        }
+
+        // D. INITIALIZATION
+        // When the page finishes loading, execute the renderGallery function to show the 9 dogs!
+        window.addEventListener("DOMContentLoaded", renderGallery);
+    </script>
+</body>
+</html>
